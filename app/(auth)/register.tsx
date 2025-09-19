@@ -34,7 +34,7 @@ const Register = () => {
     setIsLoading(false); 
     console.log('Registration Response:', res)
     if (!res.success) {
-      Alert.alert('Error', res.msg);
+      Alert.alert('Register', res.msg);
     }
   };
 

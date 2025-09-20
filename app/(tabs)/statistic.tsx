@@ -1,11 +1,12 @@
+import Header from '@/components/Header'
 import ScreenWrapper from '@/components/ScreenWrapper'
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const statistic = () => {
   return (
     <ScreenWrapper>
-      <Text>statisticdd</Text>
+      <Header title='Statistic' />
     </ScreenWrapper>
   )
 }

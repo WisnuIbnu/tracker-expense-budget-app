@@ -3,10 +3,23 @@ import { Stack } from 'expo-router';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 
+const StackLayout = () => {
+  return (
+     <Stack screenOptions={{ headerShown: false }} >
+      <Stack.Screen 
+        name='(modals)/profileModal'
+        options={{ 
+          presentation: 'modal',
+         }}
+      />
+      </Stack>
+  )
+}
+
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <Stack screenOptions={{ headerShown: false }} />
+     <StackLayout />
     </AuthProvider>
   );
 }

@@ -1,18 +1,23 @@
-import Header from '@/components/Header'
-import ScreenWrapper from '@/components/ScreenWrapper'
-import Typo from '@/components/Typo'
-import { colors, radius, spacingX, spacingY } from '@/constants/theme'
-import { useAuth } from '@/contexts/authContext'
-import { getProfileImage } from '@/services/imageService'
-import { accountOptionType } from '@/types'
-import { verticalScale } from '@/utils/styling'
-import { Image } from 'expo-image'
-import * as Icons from 'phosphor-react-native'
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import Header from '@/components/Header';
+import ScreenWrapper from '@/components/ScreenWrapper';
+import Typo from '@/components/Typo';
+import { auth } from '@/config/firebase';
+import { colors, radius, spacingX, spacingY } from '@/constants/theme';
+import { useAuth } from '@/contexts/authContext';
+import { getProfileImage } from '@/services/imageService';
+import { accountOptionType } from '@/types';
+import { verticalScale } from '@/utils/styling';
+import { Image } from 'expo-image';
+import { useRouter } from 'expo-router';
+import { signOut } from 'firebase/auth';
+import * as Icons from 'phosphor-react-native';
+import React from 'react';
+import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
 
 const Profile = () => {
   const { user } = useAuth();
+  const router = useRouter();
 
 
   const accountOptions: accountOptionType[] = [
@@ -26,13 +31,76 @@ const Profile = () => {
         />
       ),
       routeName: '/(modals)/profileModal',
-      bgColor: colors.neutral500
-    }
+      bgColor: "#392793ff"
+    },
+    {
+      title: "Settings",
+      icon: (
+        <Icons.GearSixIcon 
+          size={26}
+          color={colors.white}
+          weight="fill"
+        />
+      ),
+      // routeName: '/(modals)/profileModal',
+      bgColor: "#059669"
+    },
+    {
+      title: "Privacy Policy",
+      icon: (
+        <Icons.Lock 
+          size={26}
+          color={colors.white}
+          weight="fill"
+        />
+      ),
+      // routeName: '/(modals)/profileModal',
+      bgColor: colors.neutral600
+    },
+    {
+      title: "Logout",
+      icon: (
+        <Icons.Power 
+          size={26}
+          color={colors.white}
+          weight="fill"
+        />
+      ),
+      // routeName: '/(modals)/profileModal',
+      bgColor: "#e11d48"
+    },
   ]
+
+  const handleLogout = async () => {
+    await signOut(auth);
+  }
+
+  const showLogoutAlert = ()=>{
+    Alert.alert("confirm", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        onPress: ()=> console.log('cancel logout'),
+        style: 'cancel'
+      },
+      {
+        text: "Logout",
+        onPress: ()=>handleLogout(),
+        style: 'destructive'
+      }
+    ])
+  }
+
+  const handlePress = async (item: accountOptionType) => {
+    if(item.title === 'Logout'){
+      showLogoutAlert();
+    }
+
+    if(item.routeName) router.push(item.routeName);
+  }
   return (
     <ScreenWrapper>
       <View style={styles.container}>
-        <Header title='Profile' style={{ marginVertical: spacingY._10  }} />
+        <Header title='Profile'/>
 
         {/* User Info */}
         <View style={styles.userInfo}>
@@ -52,6 +120,48 @@ const Profile = () => {
             <Typo size={15} color={colors.neutral400}>{user?.email}
             </Typo>
           </View>
+
+
+        </View>
+
+        {/* Account Options */}
+        <View style={styles.accountOptions}>
+          {
+            accountOptions.map((item, index)=>{
+              return(
+                <Animated.View 
+                  key={index.toString()}
+                  entering={FadeInDown.delay(index*50)
+                  .springify()
+                  .damping(14)}  
+                  style={styles.listItem}>
+                  <TouchableOpacity style={styles.flexRow} onPress={()=> handlePress(item)}>
+                    <View style={[
+                      styles.listIcon, 
+                    {
+                      backgroundColor: item?.bgColor,
+
+                    }
+                    ]} >
+                      {item.icon && item.icon}
+                    </View>
+                    <Typo 
+                      size={16} 
+                      fontWeight={"500"}                      
+                        >
+                      {item.title}
+                    </Typo>
+                    <Icons.CaretRight
+                      size={verticalScale(20)}
+                      weight='bold'
+                      color={colors.white}
+                      style={{ position: 'absolute', right: 0 }}
+                      />
+                  </TouchableOpacity>
+                </Animated.View>
+              )
+            })
+          }
         </View>
       </View>
     </ScreenWrapper>
@@ -63,7 +173,7 @@ export default Profile
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: spacingX._20
+    paddingHorizontal: spacingX._20,
   },
   userInfo: {
     marginTop: verticalScale(30),

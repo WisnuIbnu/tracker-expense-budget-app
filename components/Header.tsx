@@ -1,3 +1,4 @@
+import { spacingY } from '@/constants/theme'
 import { HeaderProps } from '@/types'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
@@ -18,7 +19,8 @@ const Header = ({
             fontWeight={"600"}
             style={{ 
               textAlign:'center', 
-              width : leftIcon ? "82%" : "100%",
+              paddingTop: spacingY._10,
+              width : leftIcon ? "100%" : "100%",
             }}
           >
             {title}
@@ -35,12 +37,11 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     alignItems: 'center',
-    flexDirection: 'row'
+    paddingTop: spacingY._10
   },
   leftIcon: {
-    // Add your custom styles for the left icon here if needed
-    marginRight: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: 'absolute',     // selalu menempel kiri
+    left: 0,
+    paddingTop: spacingY._10
   }
 })

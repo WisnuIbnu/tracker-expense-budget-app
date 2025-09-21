@@ -9,6 +9,7 @@ export const uploadFileToCloudinary = async (
   folderName: string
 ): Promise<ResponseType> => {
   try {
+    if(!fileUri) return {success: true, data:null}
     const formData = new FormData();
     formData.append('file', {
       uri: fileUri,
@@ -31,14 +32,35 @@ export const uploadFileToCloudinary = async (
   }
 };
 
-
+  
 export const getProfileImage = (file: any) => {
-  if (file && typeof file === 'string') {
-    return { uri: file }; // pastikan object {uri}
+  if (!file) return null;
+
+  if (typeof file === 'string') {
+    return { uri: file };
   }
-  if (file && typeof file === 'object' && file.url) {
-    return { uri: file.url };
+
+  if (typeof file === 'object') {
+    // ambil uri jika ada
+    if (file.uri) return { uri: file.uri };
+    if (file.url) return { uri: file.url };
   }
 
   return require('../assets/images/defaultAvatar.png');
 };
+export const getFilePath = (file: any) => {
+  if (!file) return null;
+
+  if (typeof file === 'string') {
+    return { uri: file };
+  }
+
+  if (typeof file === 'object') {
+    // ambil uri jika ada
+    if (file.uri) return { uri: file.uri };
+    if (file.url) return { uri: file.url };
+  }
+
+  return null;
+};
+

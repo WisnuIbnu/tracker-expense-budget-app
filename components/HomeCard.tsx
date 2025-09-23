@@ -1,11 +1,35 @@
 import { colors, spacingX, spacingY } from '@/constants/theme'
+import { useAuth } from '@/contexts/authContext'
+import useFetchData from '@/hooks/useFetchData'
+import { WalletType } from '@/types'
 import { scale, verticalScale } from '@/utils/styling'
+import { orderBy, where } from 'firebase/firestore'
 import * as Icons from 'phosphor-react-native'
 import React from 'react'
 import { ImageBackground, StyleSheet, View } from 'react-native'
 import Typo from './Typo'
 
 const HomeCard = () => {
+
+  const { user } = useAuth();
+  const shouldFetch = !!user?.uid;
+
+  const { 
+    data: wallets, 
+    loading: walletLoading, 
+    error } = useFetchData<WalletType>( "wallets", shouldFetch ? [where("uid", "==", user?.uid), orderBy("created", "desc")] : [], shouldFetch
+  );
+
+
+  const getTotals = ()  => {
+    return wallets.reduce((totals: any,item: WalletType ) => {
+      totals.balance = totals.balance  + Number(item.amount);
+      totals.income = totals.income  + Number(item.totalIncome);
+      totals.expense = totals.expense + Number(item.totalExpenses);
+      return totals;
+    }, {balance:0, income: 0, expense: 0})
+  }
+
   return (
     <ImageBackground
       source={require('../assets/images/card.png')}
@@ -25,7 +49,14 @@ const HomeCard = () => {
               weight='fill'
             />
           </View>
-          <Typo color={colors.black} size={30} fontWeight={"bold"}>2323</Typo>
+          <Typo color={colors.black} size={30} fontWeight={"bold"}>
+            {walletLoading? "-----" : new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+          }).format(Number(String(getTotals()?.balance ?? 0).replace(/[^0-9.-]+/g, '')))}
+          </Typo>
         </View>
 
         {/* total expense and income */}
@@ -46,7 +77,12 @@ const HomeCard = () => {
             </View>
             <View style={{ alignSelf: 'center' }}>
               <Typo size={17} color={colors.green} fontWeight={"600"}>
-                2342
+                {walletLoading? "-----" : new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                }).format(Number(String(getTotals()?.income ?? 0).replace(/[^0-9.-]+/g,'')))}
               </Typo>
             </View>
           </View>
@@ -66,7 +102,12 @@ const HomeCard = () => {
             </View>
             <View style={{ alignSelf: 'center' }}>
               <Typo size={17} color={colors.rose} fontWeight={"600"}>
-                2342
+                {walletLoading? "-----" : new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0,
+                }).format(Number(String(getTotals()?.expense ?? 0).replace(/[^0-9.-]+/g,'')))}
               </Typo>
             </View>
           </View>

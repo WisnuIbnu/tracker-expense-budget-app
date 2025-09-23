@@ -15,7 +15,7 @@ const useFetchData = <T>(
   useEffect(()=>{
     if(!collectionName) return;
     const collectionRef = collection(firestore, collectionName);
-    const q = query(collectionRef, ...constraints);
+    const q = query(collectionRef, ...constraints );
 
     const unsub = onSnapshot(q, (snapshot)=>{
       const fetchedData = snapshot.docs.map(doc=>{

@@ -23,9 +23,11 @@ const Wallet = () => {
     //   where("uid", "==", user?.uid),
     //   orderBy("created", "desc")
     // ])
-    const { data: wallets, loading, error } = useFetchData<WalletType>( "wallets", user?.uid
-    ? [where("uid", "==", user.uid), orderBy("created", "desc")]
-    : []
+    const { 
+      data: wallets, 
+      loading, 
+      error } = useFetchData<WalletType>( "wallets", user?.uid ? [where("uid", "==", user.uid), 
+      orderBy("created", "desc")] : []
     );
 
     console.log("wallets :", wallets.length)
@@ -43,8 +45,12 @@ const Wallet = () => {
           <View style={styles.balanceView}>
             <View style={{ alignItems: 'center' }}>
               <Typo size={38} fontWeight={'500'}>
-                {new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' })
-                  .format(getTotalBalance())}
+              {new Intl.NumberFormat('id-ID', {
+                  style: 'currency',
+                  currency: 'IDR',
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+              }).format(getTotalBalance())}
               </Typo>
               <Typo size={16} color={colors.neutral300}>
                 Total Balance

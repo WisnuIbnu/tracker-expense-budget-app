@@ -9,7 +9,7 @@ import { expenseCategories, transactionTypes } from '@/constants/data'
 import { colors, radius, spacingX, spacingY } from '@/constants/theme'
 import { useAuth } from '@/contexts/authContext'
 import useFetchData from '@/hooks/useFetchData'
-import { createOrUpdateTransaction } from '@/services/transactionService'
+import { createOrUpdateTransaction, deleteTransaction } from '@/services/transactionService'
 import { TransactionType, WalletType } from '@/types'
 import { scale, verticalScale } from '@/utils/styling'
 import DateTimePicker from '@react-native-community/datetimepicker'
@@ -46,7 +46,17 @@ const TransactionModal = () => {
     orderBy("created", "desc")
   ]);
 
-  const oldTransaction: {name: string, image: string, id: string} = useLocalSearchParams();
+  const oldTransaction: {
+    id?: string
+    type?: string
+    amount?: string
+    category?: string
+    date?: string
+    description?: string
+    image?: string
+    uid?: string
+    walletId?: string
+  } = useLocalSearchParams();
 
   const onDateChange = (event: any, selectedDate : any) => {
     const currentDate = selectedDate || transaction.date;
@@ -54,62 +64,73 @@ const TransactionModal = () => {
     setShowDatePicker(false)
   }
 
-  useEffect(()=> {
-    if(oldTransaction?.id){
-      setTransaction({
-        name: oldTransaction?.name,
-        image: oldTransaction?.image
-      })
-    }
-  }, [oldTransaction])
+    useEffect(() => {
+      if (oldTransaction?.id) {
+        console.log('Editing transaction:', oldTransaction);
+        setTransaction({
+          type: oldTransaction?.type || 'expense',
+          amount: Number(oldTransaction?.amount),
+          description: oldTransaction?.description || "",
+          category: oldTransaction?.category || "",
+          date: oldTransaction?.date ? new Date(oldTransaction.date) : new Date(),
+          walletId: oldTransaction?.walletId || oldTransaction?.walletId || "",
+          image: oldTransaction?.image || null
+        });
+      } 
+    }, [oldTransaction.id]);
 
   const onSubmit = async () => {
-      const {type, amount, description, category, date, walletId, image} = transaction;
+    const { type, amount, description, category, date, walletId, image } = transaction;
 
-      if(!walletId || !date || !amount || (type === "expense" && !category)){
-        Alert.alert("Transaction", "Please fill all the fields");
-        return;
-      }
+    if (!walletId || !date || !amount || (type === "expense" && !category)) {
+      Alert.alert("Transaction", "Please fill all the fields");
+      return;
+    }
 
-      let transactionData : TransactionType = {
-        type,
-        amount,
-        description,
-        category,
-        date,
-        walletId,
-        image,
-        uid: user?.uid
-      }
+    let transactionData: TransactionType = {
+      type,
+      amount,
+      description,
+      category,
+      date,
+      walletId,
+      image: image ? image : null,
+      uid: user?.uid
+    };
 
-      setLoading(true);
-      const res = await createOrUpdateTransaction(transactionData);
 
-      setLoading(false);
-      if(!res.success){
-        router.back();
-      }else{
-        Alert.alert("Transaction", "Transaction Succecfully");
-        router.back();
-      }
+    if (oldTransaction?.id) {
+      transactionData.id = oldTransaction.id;
+    }
+
+    setLoading(true);
+    const res = await createOrUpdateTransaction(transactionData);
+
+    setLoading(false);
+    if (res.success) {
+      router.back();
+    } else {
+      Alert.alert("Transaction", res.msg || "Something went wrong");
+    }
   }
-
-  const onDelete = async ()=> {
+  const onDelete = async () => {
     if(!oldTransaction?.id) return;
     setLoading(true);
-    const res = await deleteWallet(oldTransaction?.id);
+    const res = await deleteTransaction(
+      oldTransaction?.id, 
+      oldTransaction.walletId);
     setLoading(false);
     if (res.success) {
       router.back();
     } else{
-      Alert.alert("Wallet", res.msg)
+      Alert.alert("Transaction", res.msg)
     }
   }
 
   const showDeleteAlert = () => {
     Alert.alert(
       "Confirm",
-      "Are you sure delete this wallet? \nThis action will remove all transaction related with this wallet",
+      "Are you sure delete this transaction?",
       [
         {
           text: "Cancel",
@@ -125,27 +146,6 @@ const TransactionModal = () => {
     );
   };
 
-  //  const data = [
-  //       {label: 'Item 1', value: '1'},
-  //       {label: 'Item 2', value: '2'},
-  //       {label: 'Item 3', value: '3'},
-  //       {label: 'Item 4', value: '4'},
-  //       {label: 'Item 5', value: '5'},
-  //       {label: 'Item 6', value: '6'},
-  //       {label: 'Item 7', value: '7'},
-  //       {label: 'Item 8', value: '8'},
-  //   ];
-
-    // const [value, setValue] = useState(null);
-    // const [isFocus, setIsFocus] = useState(false);
-
-    // const renderLabel = () => {
-    //   if(value || isFocus) {
-    //     return (
-    //       <Typo>Dropdown Label</Typo>
-    //     )
-    //   }
-    // }
   return (
     <ModalWrapper>
         <View style={styles.container}>

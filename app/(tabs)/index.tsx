@@ -21,8 +21,7 @@ const Home = () => {
 
     const { 
       data: transaksi, 
-      loading: loadingtransaksi, 
-      error: err 
+      loading: loadingtransaksi,
       } = useFetchData<TransactionType>( "transactions", user?.uid ? [where("uid", "==", user.uid), 
       orderBy("date", "desc"),limit(30)] : []
     );
@@ -38,7 +37,7 @@ const Home = () => {
               </Typo>
               <Typo size={20} fontWeight={'500'}>{user?.name}</Typo>
           </View>
-          <TouchableOpacity style={styles.seacrhIcon}>
+          <TouchableOpacity onPress={() => router.push('/(modals)/searchModal')} style={styles.seacrhIcon}>
             <Icons.MagnifyingGlassIcon 
               size={verticalScale(22)}
               color={colors.neutral200}

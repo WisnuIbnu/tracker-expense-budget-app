@@ -17,7 +17,7 @@ import { Alert, ScrollView, StyleSheet, View } from 'react-native'
 
 const WalletModal = () => {
 
-  const {user, updateUserData} = useAuth();
+  const {user} = useAuth();
   const [wallet, setWallet] = useState<WalletType>({
     name: "",
     image: null,
@@ -55,12 +55,6 @@ const WalletModal = () => {
       data.image = wallet.image;
     }
 
-    // const data: WalletType ={
-    //   name,
-    //   image,
-    //   uid: user?.uid
-    // };
-    // todo: include wallet id if update
     if(oldWallet?.id) data.id = oldWallet?.id;
      
     setLoading(true)

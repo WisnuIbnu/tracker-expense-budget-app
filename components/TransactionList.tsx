@@ -13,7 +13,7 @@ import Typo from './Typo'
 
 
 const TransactionList = ({
-  data,
+  data = [],
   title,
   loading,
   emptyListMessage
@@ -38,6 +38,7 @@ const handleClick = (item: TransactionType) => {
   })
 }
 
+  const safeData = Array.isArray(data) ? data : [];
   return (
     <View style={styles.container}>
       {
@@ -50,7 +51,7 @@ const handleClick = (item: TransactionType) => {
 
       <View style={styles.list}>
         <FlashList
-          data={data}
+          data={safeData}
           renderItem={({ item, index }) => (
             <TransactionItem item={item} index={index} handleClick={handleClick}/>
           )}

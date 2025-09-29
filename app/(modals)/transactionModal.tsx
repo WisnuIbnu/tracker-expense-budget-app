@@ -37,14 +37,12 @@ const TransactionModal = () => {
   const [showDatePicker, setShowDatePicker] = useState(false)
   const router = useRouter();
 
-  const {
+
+    const { 
     data: wallet,
-    error: walletError,
-    loading: walletLoading,
-  } = useFetchData<WalletType>("wallets", [
-    where("uid", "==", user?.uid),
-    orderBy("created", "desc")
-  ]);
+    } = useFetchData<WalletType>( "wallets", user?.uid ? [where("uid", "==", user.uid), 
+    orderBy("created", "desc")] : []
+  );
 
   const oldTransaction: {
     id?: string

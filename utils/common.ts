@@ -1,5 +1,5 @@
 export const getLast7Days = () => {
-  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const daysOfWeek = ["Ming", "Sen", "Sel", "Rab", "kam", "Jum", "Sab"];
   const result = [];
 
   for (let i = 6; i >= 0; i--) {

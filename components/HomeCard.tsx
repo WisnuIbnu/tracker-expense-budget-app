@@ -11,15 +11,17 @@ import Typo from './Typo'
 
 const HomeCard = () => {
 
-  const { user } = useAuth();
-  const shouldFetch = !!user?.uid;
+const { user } = useAuth();
 
-  const { 
-    data: wallets, 
-    loading: walletLoading, 
-    error } = useFetchData<WalletType>( "wallets", shouldFetch ? [where("uid", "==", user?.uid), orderBy("created", "desc")] : [], shouldFetch
-  );
-
+const { 
+  data: wallets,
+  loading: walletLoading,
+} = useFetchData<WalletType>(
+  "wallets",
+  user
+    ? [where("uid", "==", user.uid), orderBy("created", "desc")]
+    : [] 
+);
 
   const getTotals = ()  => {
     return wallets.reduce((totals: any,item: WalletType ) => {

@@ -19,14 +19,10 @@ const Wallet = () => {
     const router = useRouter();
     const { user }= useAuth();
 
-    // const { data: wallets, error, loading } = useFetchData<WalletType>("wallets", [
-    //   where("uid", "==", user?.uid),
-    //   orderBy("created", "desc")
-    // ])
     const { 
       data: wallets, 
-      loading, 
-      error } = useFetchData<WalletType>( "wallets", user?.uid ? [where("uid", "==", user.uid), 
+      loading,
+      } = useFetchData<WalletType>( "wallets", user?.uid ? [where("uid", "==", user.uid), 
       orderBy("created", "desc")] : []
     );
 

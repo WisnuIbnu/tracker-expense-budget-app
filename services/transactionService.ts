@@ -5,6 +5,7 @@ import { getLast12Months, getLast7Days, getYearsRange } from "@/utils/common";
 import { scale } from "@/utils/styling";
 import { collection, deleteDoc, doc, getDoc, getDocs, orderBy, query, setDoc, Timestamp, updateDoc, where } from "firebase/firestore";
 import { uploadFileToCloudinary } from "./imageService";
+import { checkExpenseLimitAndNotify } from './notificationService';
 import { createOrUpdateWallet } from "./walletService";
 
 export const createOrUpdateTransaction = async (
@@ -39,6 +40,10 @@ export const createOrUpdateTransaction = async (
           type
         );
         if(!res.success) return res;
+      }
+
+      if (type === 'expense') { 
+          await checkExpenseLimitAndNotify(); 
       }
 
       if (image && typeof image !== 'string') {
@@ -225,6 +230,10 @@ export const deleteTransaction = async (
 
     await deleteDoc(transactionRef);
     
+    if (transcationData?.type === 'expense') { 
+        await checkExpenseLimitAndNotify(); 
+    }
+
     return { success: true}
   } catch (err: any) {
     console.log("error updateing wallet for new transaction", err)

@@ -1,6 +1,8 @@
 import { AuthProvider } from '@/contexts/authContext';
+import { registerBackgroundExpenseCheck } from '@/services/backgroundTaskService';
+import { requestNotificationPermission } from '@/services/notificationService';
 import { Stack } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const StackLayout = () => {
   return (
@@ -29,11 +31,23 @@ const StackLayout = () => {
           presentation: 'modal',
          }}
       />
+      <Stack.Screen 
+        name='(modals)/setExpenseLimits'
+        options={{ 
+          presentation: 'modal',
+         }}
+      />
       </Stack>
   )
 }
 
 export default function RootLayout() {
+
+ useEffect(() => {
+  requestNotificationPermission();
+  registerBackgroundExpenseCheck();
+ }, [])
+
   return (
     <AuthProvider>
      <StackLayout />

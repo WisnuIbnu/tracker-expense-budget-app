@@ -42,7 +42,7 @@ const Profile = () => {
           weight="fill"
         />
       ),
-      // routeName: '/(modals)/profileModal',
+      routeName: '/(modals)/setExpenseLimits',
       bgColor: "#059669"
     },
     {

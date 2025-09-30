@@ -1,7 +1,6 @@
 import BackButton from '@/components/BackButton'
 import Button from '@/components/Button'
 import Header from '@/components/Header'
-import ImageUpload from '@/components/ImageUpload'
 import Input from '@/components/Input'
 import ModalWrapper from '@/components/ModalWrapper'
 import Typo from '@/components/Typo'
@@ -128,15 +127,15 @@ const TransactionModal = () => {
   const showDeleteAlert = () => {
     Alert.alert(
       "Confirm",
-      "Are you sure delete this transaction?",
+      "Apakah Kamu Yakin Ingin Menghapus Transaksi ini?",
       [
         {
-          text: "Cancel",
+          text: "Batal",
           onPress: () => console.log("Cancel delete"),
           style: "cancel",
         },
         {
-          text: "Delete",
+          text: "Hapus",
           onPress: () => onDelete(),
           style: "destructive",
         },
@@ -148,14 +147,14 @@ const TransactionModal = () => {
     <ModalWrapper>
         <View style={styles.container}>
           <Header 
-            title={oldTransaction?.id ? "Update Transaction" : "New Transaction"} 
+            title={oldTransaction?.id ? "Perbarui Transaksi" : "Transaksi Baru"} 
             leftIcon={<BackButton/>} style={{ marginBottom: spacingY._10 }} />
 
           {/* Form Update Data */}
           <ScrollView contentContainerStyle={styles.form} showsVerticalScrollIndicator={false}>
             {/* transaction type */}
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200} size={16}>Type</Typo>
+              <Typo color={colors.neutral200} size={16}>Tipe</Typo>
                 {/* Dropdow  */}
                 <Dropdown 
                   style={styles.dropdownContainer}
@@ -179,7 +178,7 @@ const TransactionModal = () => {
             </View>
             {/* Type Wallet */}
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200} size={16}>Wallet</Typo>
+              <Typo color={colors.neutral200} size={16}>Jenis Dompet</Typo>
                 {/* Dropdow  */}
                 <Dropdown 
                   style={styles.dropdownContainer}
@@ -197,7 +196,7 @@ const TransactionModal = () => {
                   itemTextStyle={styles.dropdownItemText}
                   itemContainerStyle={styles.dropdownItemContainer}
                   containerStyle={styles.dropdownListContainer}
-                  placeholder={"Select wallet"}
+                  placeholder={"Pilih Jenis Dompet"}
                   value={transaction.walletId}
                   onChange={(item) => {
                     setTransaction({...transaction, walletId: item.value || ""})
@@ -208,7 +207,7 @@ const TransactionModal = () => {
             {/* Expense categories */}
             { transaction.type === 'expense' && (
                 <View style={styles.inputContainer}>
-                  <Typo color={colors.neutral200} size={16}>Expense Categories</Typo>
+                  <Typo color={colors.neutral200} size={16}>Kategori Pengeluaran</Typo>
                     {/* Dropdow  */}
                     <Dropdown 
                       style={styles.dropdownContainer}
@@ -223,7 +222,7 @@ const TransactionModal = () => {
                       itemTextStyle={styles.dropdownItemText}
                       itemContainerStyle={styles.dropdownItemContainer}
                       containerStyle={styles.dropdownListContainer}
-                      placeholder={"Select category"}
+                      placeholder={"Pilih Kategori"}
                       value={transaction.category}
                       onChange={(item) => {
                         setTransaction({...transaction, category: item.value || ""})
@@ -235,7 +234,7 @@ const TransactionModal = () => {
               {/* date picker */}
 
               <View style={styles.inputContainer}>
-                <Typo color={colors.neutral200} size={16}>Date</Typo>
+                <Typo color={colors.neutral200} size={16}>Tanggal</Typo>
                 {
                   !showDatePicker && (
                     <Pressable
@@ -268,7 +267,7 @@ const TransactionModal = () => {
               {/* amount */}
 
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200} size={16}>Amount</Typo>
+              <Typo color={colors.neutral200} size={16}>Jumlah</Typo>
               <Input
                 placeholder='Salary'
                 keyboardType='numeric'
@@ -281,7 +280,7 @@ const TransactionModal = () => {
 
             <View style={styles.inputContainer}>
               <View style={styles.flexRow} >
-                <Typo color={colors.neutral200} size={16}>Description</Typo>
+                <Typo color={colors.neutral200} size={16}>Deskripsi</Typo>
                 <Typo color={colors.neutral500} size={14}>(Opsional)</Typo>
               </View>
               <Input
@@ -298,18 +297,6 @@ const TransactionModal = () => {
                   setTransaction({...transaction, description: value})
                  }
               />
-            </View>
-            
-            <View style={styles.inputContainer}>
-              <View style={styles.flexRow} >
-                <Typo color={colors.neutral200} size={16}>Receipt</Typo>
-                <Typo color={colors.neutral500} size={14}>(Opsional)</Typo>
-              </View>
-                <ImageUpload 
-                  file={transaction.image}
-                  onClear={()=> setTransaction({...transaction, image: null})} 
-                  onSelect={ (file) => setTransaction({...transaction, image: file})}  
-                  placeholder='Upload Image'/>
             </View>
           </ScrollView>
         </View>
@@ -335,7 +322,7 @@ const TransactionModal = () => {
           }
           <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
             <Typo color={colors.black} fontWeight={'700'}>
-              {oldTransaction?.id ? "Update" : "Submit"}
+              {oldTransaction?.id ? "Perbarui" : "Simpan"}
             </Typo>
           </Button>
         </View>

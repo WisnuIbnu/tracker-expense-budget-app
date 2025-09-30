@@ -22,7 +22,7 @@ const Profile = () => {
 
   const accountOptions: accountOptionType[] = [
     {
-      title: "Edit Profile",
+      title: "Edit Profil",
       icon: (
         <Icons.UserIcon 
           size={26}
@@ -34,7 +34,7 @@ const Profile = () => {
       bgColor: "#392793ff"
     },
     {
-      title: "Settings",
+      title: "Pengaturan Batas Pengeluaran",
       icon: (
         <Icons.GearSixIcon 
           size={26}
@@ -54,7 +54,7 @@ const Profile = () => {
           weight="fill"
         />
       ),
-      // routeName: '/(modals)/profileModal',
+      routeName: '/(modals)/privacyModal',
       bgColor: colors.neutral600
     },
     {
@@ -66,7 +66,6 @@ const Profile = () => {
           weight="fill"
         />
       ),
-      // routeName: '/(modals)/profileModal',
       bgColor: "#e11d48"
     },
   ]
@@ -76,18 +75,19 @@ const Profile = () => {
   }
 
   const showLogoutAlert = ()=>{
-    Alert.alert("confirm", "Are you sure you want to logout?", [
-      {
-        text: "Cancel",
-        onPress: ()=> console.log('cancel logout'),
-        style: 'cancel'
-      },
-      {
-        text: "Logout",
-        onPress: ()=>handleLogout(),
-        style: 'destructive'
-      }
-    ])
+    Alert.alert("Confirm", "Apakah Kamu Yakin Ingin Keluar?", 
+      [
+        {
+          text: "Cancel",
+          onPress: ()=> console.log('cancel logout'),
+          style: 'cancel'
+        },
+        {
+          text: "Logout",
+          onPress: ()=>handleLogout(),
+          style: 'destructive'
+        }
+      ])
   }
 
   const handlePress = async (item: accountOptionType) => {

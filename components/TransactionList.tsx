@@ -137,8 +137,6 @@ export default TransactionList
 const styles = StyleSheet.create({
   container:{
     gap: spacingY._17,
-    // flex: 1,
-    // backgroundColor : 'red'
   },
   list: {
     minHeight: 3
@@ -149,7 +147,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacingX._12,
     marginBottom: spacingY._12,
-    // list with backgorund
     backgroundColor: colors.neutral800,
     padding: spacingY._10,
     paddingHorizontal: spacingY._10,

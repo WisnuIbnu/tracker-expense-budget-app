@@ -11,9 +11,7 @@ const BackgroundTaskResult = {
 };
 
 TaskManager.defineTask(EXPENSE_CHECK_TASK_NAME, async () => {
-    try {
-        console.log('Background task running: Checking expense limit...');
-        
+    try {       
         await checkExpenseLimitAndNotify(); 
         return BackgroundTaskResult.NewData; 
     } catch (error) {
@@ -25,7 +23,6 @@ TaskManager.defineTask(EXPENSE_CHECK_TASK_NAME, async () => {
 export async function registerBackgroundExpenseCheck() {
     const isRegistered = await TaskManager.isTaskRegisteredAsync(EXPENSE_CHECK_TASK_NAME);
     if (isRegistered) {
-        console.log('Background task already registered.');
         return; 
     }
 

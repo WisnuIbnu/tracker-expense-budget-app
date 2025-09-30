@@ -33,7 +33,7 @@ const Home = () => {
         <View style={styles.header}>
           <View style={{ gap: 4 }}>
               <Typo size={16} color={colors.neutral400}>
-                Hello,
+                Hallo,
               </Typo>
               <Typo size={20} fontWeight={'500'}>{user?.name}</Typo>
           </View>
@@ -59,7 +59,7 @@ const Home = () => {
             data={transaksi} 
             loading={loadingtransaksi}
             emptyListMessage='No Transactions added yet!'
-            title='Recent Transactions'
+            title='Transaksi Terbaru'
           />
         </ScrollView>
 

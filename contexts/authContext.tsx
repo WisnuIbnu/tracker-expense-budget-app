@@ -38,8 +38,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error: any) {
         let msg = error.message;
         console.log("error message: ", msg)
-        if (msg.includes("(auth/invalid-email)")) msg = "Invalid email address"
-        if (msg.includes("(auth/invalid-credential)")) msg = "Wrong password"
+        if (msg.includes("(auth/invalid-email)")) msg = "Email Anda Salah"
+        if (msg.includes("(auth/invalid-credential)")) msg = "Password Anda Salah"
         return {success: false, msg}
     }
   }
@@ -56,7 +56,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } catch (error: any) {
         let msg = error.message;
         console.log("error message: ",msg)
-        if (msg.includes("(auth/email-already-in-use)")) msg = "Email already in use"
+        if (msg.includes("(auth/email-already-in-use)")) msg = "Email ini Sudah digunakan, harap mengganti yang lain!"
         return {success: false, msg}
     }
   };

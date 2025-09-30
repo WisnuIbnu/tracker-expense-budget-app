@@ -15,7 +15,7 @@ export const createOrUpdateWallet = async (
       if (!imageUpdateRes.success) {
         return {
           success: false,
-          msg: imageUpdateRes.msg || "Failed to upload wallet icon"
+          msg: imageUpdateRes.msg || "Gagal Upload Icon Dompet"
         }
       }
       walletToSave.image = imageUpdateRes.data;
@@ -48,7 +48,7 @@ export const deleteWallet = async (walletId: string): Promise<ResponseType> => {
 
     deleteTransactionByWalletId(walletId);
 
-    return { success: true, msg: "Wallet deleted successfully" };
+    return { success: true, msg: "Dompet Berhasil dihapus" };
   } catch (err: unknown) {
     console.log("error deleting wallet", err);
 
@@ -84,12 +84,12 @@ export const deleteTransactionByWalletId = async (walletId: string): Promise<Res
 
         await batch.commit();
 
-        console.log(`${transactionsSnapshot.size} transactions deleted in this batch`);
+        console.log(`${transactionsSnapshot.size} transactions deleted in this batch transaksi yang berhubungan dengan dompet ini`);
       }
 
       return {
         success: true,
-        msg: "All transactions deleted successfully",
+        msg: "Berhasil Menghapus Semua Transaksi",
       }
 
   } catch (err: unknown) {

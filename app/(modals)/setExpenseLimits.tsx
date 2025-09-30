@@ -23,13 +23,11 @@ const ExpenseLimitModal = () => {
   const formatRupiah = (value: number) =>
     new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(value);
 
-  // --- Memuat Batas Saat Ini ---
   useEffect(() => {
     const loadLimit = async () => {
       try {
         const limit = await getExpenseLimit();
         setCurrentLimit(limit);
-        // Tampilkan batas saat ini di input (jika ada)
         setLimitInput(limit > 0 ? String(limit) : '');
       } catch (err) {
         console.error('Error getExpenseLimit:', err);
@@ -39,9 +37,7 @@ const ExpenseLimitModal = () => {
     loadLimit();
   }, []);
 
-  // --- Logika Penyimpanan Batas ---
   const handleSaveLimit = async () => {
-    // Bersihkan input & konversi ke number (default 0 jika kosong)
     const numeric = Number(limitInput.replace(/[^0-9]/g, '')) || 0;
 
     if (numeric < 0) {
@@ -51,7 +47,6 @@ const ExpenseLimitModal = () => {
 
     setLoading(true);
     try {
-      // Simpan limit baru & otomatis panggil notifikasi (jika service mendukung)
       await setExpenseLimit(numeric);
       setCurrentLimit(numeric);
 
@@ -62,7 +57,7 @@ const ExpenseLimitModal = () => {
         }.`
       );
 
-      router.back(); // Tutup modal setelah selesai
+      router.back(); 
     } catch (err) {
       console.error('Error setExpenseLimit:', err);
       Alert.alert('Error', 'Gagal menyimpan batas pengeluaran.');
@@ -75,7 +70,7 @@ const ExpenseLimitModal = () => {
     <ModalWrapper>
       <View style={styles.container}>
         <Header
-          title="Atur Batas Pengeluaran"
+          title="Atur Batas"
           leftIcon={<BackButton />}
           style={{ marginBottom: spacingY._10 }}
         />
@@ -102,15 +97,15 @@ const ExpenseLimitModal = () => {
           <View style={styles.inputContainer}>
             <Typo color={colors.neutral200}>Batas Bulanan (Rp)</Typo>
             <Input
-              placeholder="Masukkan Batas (0 untuk menonaktifkan)"
+              placeholder="Masukkan Batas Pengeluaran"
               keyboardType="numeric"
               value={limitInput}
               onChangeText={(value) => {
-                // Hanya izinkan angka
                 const numericValue = value.replace(/[^0-9]/g, '');
                 setLimitInput(numericValue);
               }}
             />
+            <Typo color={colors.neutral500} size={scale(14)}>Untuk Menonaktifikan Batas, Harap Mengisi 0</Typo>
           </View>
         </ScrollView>
       </View>

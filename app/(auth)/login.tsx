@@ -21,7 +21,7 @@ const Login = () => {
 
   const handleSubmit = async () => {
     if (!emailRef.current || !passwordRef.current){
-      Alert.alert('Error', 'Please fill all the fields')
+      Alert.alert('Error', 'Harap Mengisi Semua Form')
       return
     }
 
@@ -53,11 +53,11 @@ const Login = () => {
         {/* <LoginForm /> */}
         <View style={styles.form}>
           <Typo size={16} color={colors.textLighter}>
-            Login now to track all your expenses and income.
+            Login sekarang untuk melacak semua pengeluaran dan pendapatan Kamu.
           </Typo>
           {/* Input */}
           <Input
-            placeholder='Enter your email'
+            placeholder='Ketik Email Kamu'
             keyboardType='email-address'
             onChangeText={(value: string) => (emailRef.current = value)}
             icon={
@@ -65,7 +65,7 @@ const Login = () => {
             }
           />
           <Input
-            placeholder='Enter your password'
+            placeholder='Ketik Password Kamu'
             secureTextEntry
             onChangeText={(value: string) => (passwordRef.current = value)}
             icon={
@@ -89,12 +89,12 @@ const Login = () => {
         <View
           style={styles.footer}
         >
-          <Typo size={15}> Dont have an account ?</Typo>
+          <Typo size={15}>Belum punya akun ?</Typo>
           <Pressable
             onPress={()=> router.navigate('/(auth)/register')}
           >
             <Typo size={15} fontWeight={"700"} color={colors.primary}>
-              Register
+              Daftar
             </Typo>
           </Pressable>
         </View>

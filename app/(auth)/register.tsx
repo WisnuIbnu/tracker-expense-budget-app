@@ -22,7 +22,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     if (!emailRef.current || !passwordRef.current || !nameRef.current){
-      Alert.alert('Error', 'Please fill all the fields')
+      Alert.alert('Error', 'Harap Mengisi Semua Form')
       return
     }
     setIsLoading(true);
@@ -57,25 +57,25 @@ const Register = () => {
         {/* <LoginForm /> */}
         <View style={styles.form}>
           <Typo size={16} color={colors.textLighter}>
-            Create an account now to track all your expenses and income.
+            Buat akun sekarang untuk melacak semua pengeluaran dan pendapatan Anda.
           </Typo>
           {/* Input */}
           <Input
-            placeholder='Enter your name'
+            placeholder='Ketik Nama Kamu'
             onChangeText={(value: string) => (nameRef.current = value)}
             icon={
               <Icons.User size={20} color={colors.neutral400} />
             }
           />
           <Input
-            placeholder='Enter your email'
+            placeholder='Ketik Email Kamu'
             onChangeText={(value: string) => (emailRef.current = value)}
             icon={
               <Icons.At size={20} color={colors.neutral400} />
             }
           />
           <Input
-            placeholder='Enter your password'
+            placeholder='Ketik Password'
             secureTextEntry
             onChangeText={(value: string) => (passwordRef.current = value)}
             icon={
@@ -87,7 +87,7 @@ const Register = () => {
 
           <Button loading={isLoading} onPress={handleSubmit}>
             <Typo fontWeight={"700"} color={colors.black} size={21}>
-              Sign Up
+              Daftar
             </Typo>
           </Button>
         </View>
@@ -96,7 +96,7 @@ const Register = () => {
         <View
           style={styles.footer}
         >
-          <Typo size={15}> Already have an account ?</Typo>
+          <Typo size={15}>Sudah punya akun ?</Typo>
           <Pressable
             onPress={()=> router.navigate('/(auth)/login')}
           >

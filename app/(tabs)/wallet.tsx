@@ -49,7 +49,7 @@ const Wallet = () => {
               }).format(getTotalBalance())}
               </Typo>
               <Typo size={16} color={colors.neutral300}>
-                Total Balance
+                Total Saldo
               </Typo>
             </View>
           </View>
@@ -59,7 +59,7 @@ const Wallet = () => {
             {/* Header */}
             <View style={styles.flexRow}>
               <Typo size={20} fontWeight={'500'}>
-                My Wallets
+                Dompet
               </Typo>
               <TouchableOpacity onPress={ () => router.push("/(modals)/walletModal")}>
                   <Icons.PlusCircle

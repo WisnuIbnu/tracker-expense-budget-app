@@ -43,7 +43,7 @@ const {
           {/* Total Balance */}
           <View style={styles.totalBalanceRow}>
             <Typo color={colors.neutral800} size={17}>
-              Total Balance
+              Total Saldo
             </Typo>
             <Icons.DotsThreeOutlineIcon
               size={verticalScale(23)}
@@ -74,7 +74,7 @@ const {
                 />
               </View>
               <Typo size={16} color={colors.neutral700}>
-                Income
+                Pemasukan
               </Typo>
             </View>
             <View style={{ alignSelf: 'center' }}>
@@ -99,7 +99,7 @@ const {
                 />
               </View>
               <Typo size={16} color={colors.neutral700}>
-                Expense
+                Pengeluaran
               </Typo>
             </View>
             <View style={{ alignSelf: 'center' }}>

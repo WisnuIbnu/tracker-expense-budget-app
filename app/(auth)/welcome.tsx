@@ -17,7 +17,7 @@ const Welcome = () => {
         {/* Login Button & Image */}
         <View>
           <TouchableOpacity onPress={()=> router.push('/(auth)/login')} style={styles.loginButton}>
-            <Typo fontWeight={"500"}>Sign In</Typo>
+            <Typo fontWeight={"500"}>Login</Typo>
           </TouchableOpacity>
 
           <Animated.Image
@@ -65,7 +65,7 @@ const Welcome = () => {
               .damping(12)} 
             style={styles.buttonContainer}>
             <Button onPress={()=> router.push('/(auth)/register')} >
-              <Typo size={22} color={colors.neutral900} fontWeight={600} >Get Started</Typo>
+              <Typo size={22} color={colors.neutral900} fontWeight={600} >Daftar Sekarang</Typo>
             </Button>
           </Animated.View>
         </View>

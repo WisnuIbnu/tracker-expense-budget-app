@@ -85,15 +85,15 @@ const WalletModal = () => {
   const showDeleteAlert = () => {
     Alert.alert(
       "Confirm",
-      "Are you sure delete this wallet? \nThis action will remove all transactions related with this wallet",
+      "Apakah Anda yakin ingin menghapus dompet ini?\nTindakan ini akan menghapus semua transaksi yang terkait dengan dompet ini.",
       [
         {
-          text: "Cancel",
+          text: "Batal",
           onPress: () => console.log("Cancel delete"),
           style: "cancel",
         },
         {
-          text: "Delete",
+          text: "Hapus",
           onPress: () => onDelete(),
           style: "destructive",
         },
@@ -105,15 +105,15 @@ const WalletModal = () => {
     <ModalWrapper>
         <View style={styles.container}>
           <Header 
-            title={oldWallet?.id ? "Update Wallet" : "New Wallet"} 
+            title={oldWallet?.id ? "Edit Dompet" : "Dompet Baru"} 
             leftIcon={<BackButton/>} style={{ marginBottom: spacingY._10 }} />
 
           {/* Form Update Data */}
           <ScrollView contentContainerStyle={styles.form}>
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200}>Wallet Name</Typo>
+              <Typo color={colors.neutral200}>Nama Dompet</Typo>
               <Input
-                placeholder='Salary'
+                placeholder='Nama'
                 value={wallet.name}
                 onChangeText={(value) =>
                   setWallet({...wallet, name: value})
@@ -121,12 +121,12 @@ const WalletModal = () => {
               />
             </View>
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200}>Wallet Icons</Typo>
+              <Typo color={colors.neutral200}>Icon Dompet</Typo>
                 <ImageUpload 
                   file={wallet.image}
                   onClear={()=> setWallet({...wallet, image: null})} 
                   onSelect={file=> setWallet({...wallet, image: file})}  
-                  placeholder='Upload Image'/>
+                  placeholder='Upload Gambar'/>
             </View>
           </ScrollView>
         </View>
@@ -152,7 +152,7 @@ const WalletModal = () => {
           }
           <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
             <Typo color={colors.black} fontWeight={'700'}>
-              {oldWallet?.id ? "Update Wallet" : "Add Wallet"}
+              {oldWallet?.id ? "Simpan" : "Tambah Dompet"}
             </Typo>
           </Button>
         </View>

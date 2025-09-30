@@ -71,7 +71,7 @@ import { BarChart } from 'react-native-gifted-charts'
       <ScreenWrapper>
         <View style={styles.container}>
           <View style={styles.header}>
-            <Header title='Statistics' />
+            <Header title='Statistik' />
 
             <ScrollView
               contentContainerStyle={{ 
@@ -81,7 +81,7 @@ import { BarChart } from 'react-native-gifted-charts'
               }}
               >
                 <SegmentedControl
-                  values={["Weekly", "Monthly", "Yearly"]}
+                  values={["Mingguan", "Bulanan", "Tahunan"]}
                   selectedIndex={activeIndex}
                   onChange={(event) => {
                     setActiveIndex(event.nativeEvent.selectedSegmentIndex)
@@ -120,9 +120,8 @@ import { BarChart } from 'react-native-gifted-charts'
                           const num = parseFloat(val);
                           return isNaN(num) ? val : (num / 1_000_000).toFixed(1).replace(/\.0$/, '');
                         }}
-                        // isAnimated={true}
-                        // animationDuration={1000}
-                        // maxValue={100}
+                        isAnimated={true}
+                        animationDuration={1000}
                       />
                     ):(
                       <View style={styles.noChart} />
@@ -141,7 +140,7 @@ import { BarChart } from 'react-native-gifted-charts'
                 {/* Transaction */}
                 <View>
                   <TransactionList
-                    title='Transactions'
+                    title='Transaksi'
                     emptyListMessage='No transaction found'
                     data={transactions}
                   />

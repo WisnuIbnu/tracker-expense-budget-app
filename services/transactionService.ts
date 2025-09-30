@@ -15,7 +15,7 @@ export const createOrUpdateTransaction = async (
       
       const { id, type, walletId, amount, image} = transactionData;
       if(!amount || amount<=0 || !walletId || !type){
-        return{ success: false, msg: "Invalid transaction data!"}
+        return{ success: false, msg: "Data Transaksi Salah"}
       }
 
       if(id){
@@ -49,7 +49,7 @@ export const createOrUpdateTransaction = async (
       if (image && typeof image !== 'string') {
           const imageUpdateRes = await uploadFileToCloudinary(image.uri, 'transactions');
           if (!imageUpdateRes.success) {
-              return { success: false, msg: imageUpdateRes.msg || "Failed to upload receipt" };
+              return { success: false, msg: imageUpdateRes.msg || "Gagal Upload" };
           }
           transactionData.image = imageUpdateRes.data;
       }
@@ -86,7 +86,7 @@ const updadeWalletForNewTransaction = async (
     const walletData = walletSnapShot.data() as WalletType;
 
     if(type === "expense" && walletData.amount! - amount < 0) {
-      return { success: false, msg: "Selected wallet dont have enough balance"}
+      return { success: false, msg: "Dompet yang dipilih tidak memiliki saldo yang cukup"}
     }
 
     const updatedType = type === "income" ? "totalIncome" : "totalExpenses";
@@ -139,11 +139,11 @@ const revertAndUpdateWallets = async (
     if(newTransactionType === "expense"){
     // if user tries to convert income to expense  on the same wallet or if user try to increase the expense amount and dont balance amount
       if(oldTransaction.walletId === newWalletId && revertedWalletAmount < newTransactionAmount){
-        return { success: false, msg: "The selected wallet dont have enough balance"};
+        return { success: false, msg: "Dompet yang dipilih tidak memiliki saldo yang cukup"};
       }
 
       if(newWallet.amount! < newTransactionAmount){
-        return { success: false, msg: "The selected wallet dont have enough balance"};
+        return { success: false, msg: "Dompet yang dipilih tidak memiliki saldo yang cukup"};
       }
     }
 
@@ -219,7 +219,7 @@ export const deleteTransaction = async (
     const newIncomeExpenseAmount = walletData[updateType]! -transactionAmount;
     
     if(transactionType === 'expense' && newWalletAmount<0){
-      return { success: false, msg: "You cannot delete this transaction"}
+      return { success: false, msg: "Kamu tidak dapat menghapus transaksi ini"}
     }
 
     await createOrUpdateWallet({
@@ -372,11 +372,6 @@ export const fetchMonthlyStats = async (
           frontColor: colors.rose,
         }
     ]);
-
-    console.log('Monthly transactions:', transactions);
-    console.log('Monthly stats:', stats);
-    console.log('Monthly data result:', { stats, transactions });
-
     return {
       success: true,
       data: {

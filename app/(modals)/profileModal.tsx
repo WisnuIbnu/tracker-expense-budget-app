@@ -60,7 +60,7 @@ const ProfileModals = () => {
   const onSubmit = async () => {
     let {name, image} = userData;
     if(!name.trim()){
-      Alert.alert("User", "Please fill all the fields")
+      Alert.alert("User", "Harap Mengisi Semua Form")
       return
     }
 
@@ -80,7 +80,7 @@ const ProfileModals = () => {
   return (
     <ModalWrapper>
         <View style={styles.container}>
-          <Header title='Update Profile' leftIcon={<BackButton/>} style={{ marginBottom: spacingY._10 }} />
+          <Header title='Edit Profil' leftIcon={<BackButton/>} style={{ marginBottom: spacingY._10 }} />
 
           {/* Form Update Data */}
           <ScrollView contentContainerStyle={styles.form}>
@@ -101,7 +101,7 @@ const ProfileModals = () => {
             </View>
 
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200}>Name</Typo>
+              <Typo color={colors.neutral200}>Nama</Typo>
               <Input
                 placeholder='Name'
                 value={userData.name}
@@ -117,7 +117,7 @@ const ProfileModals = () => {
         <View style={styles.footer}>
           <Button onPress={onSubmit} loading={loading} style={{ flex: 1 }}>
             <Typo color={colors.black} fontWeight={'700'}>
-              Update
+              Simpan
             </Typo>
           </Button>
         </View>

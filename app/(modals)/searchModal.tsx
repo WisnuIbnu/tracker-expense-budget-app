@@ -43,15 +43,15 @@ const SearchModal = () => {
     <ModalWrapper style={{ backgroundColor: colors.neutral900 }}>
         <View style={styles.container}>
           <Header 
-            title={"Search"} 
+            title={"Cari Transaksi"} 
             leftIcon={<BackButton/>} style={{ marginBottom: spacingY._10 }} />
 
           {/* Form Update Data */}
           <ScrollView contentContainerStyle={styles.form}>
             <View style={styles.inputContainer}>
-              <Typo color={colors.neutral200}>Wallet Name</Typo>
+              <Typo color={colors.neutral200}>Nama Transaksi</Typo>
               <Input
-                placeholder='Shoes..'
+                placeholder='Ketik Nama Transaksi'
                 value={search}
                 containerStyle={{ backgroundColor: colors.neutral800 }}
                 placeholderTextColor={colors.neutral400}

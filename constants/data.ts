@@ -85,6 +85,6 @@ export const incomeCategory: CategoryType = {
 };
 
 export const transactionTypes = [
-  { label: "Expense", value: "expense" },
-  { label: "Income", value: "income" },
+  { label: "Pengeluaran", value: "expense" },
+  { label: "Pemasukan", value: "income" },
 ];

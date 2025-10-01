@@ -1,5 +1,5 @@
 export const getLast7Days = () => {
-  const daysOfWeek = ["Ming", "Sen", "Sel", "Rab", "kam", "Jum", "Sab"];
+  const daysOfWeek = ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"];
   const result = [];
 
   for (let i = 6; i >= 0; i--) {
@@ -13,7 +13,6 @@ export const getLast7Days = () => {
     });
   }
   return result.reverse();
-  // returns an array of all the previous 7 days
 };
 
 export const getLast12Months = () => {

@@ -104,7 +104,6 @@ import { BarChart } from 'react-native-gifted-charts'
                         roundedTop
                         roundedBottom
                         hideRules
-                        yAxisLabelSuffix='jt'
                         yAxisThickness={0}
                         xAxisThickness={0}
                         yAxisLabelWidth={[1,2].includes(activeIndex)? scale(26) : scale(27)}
@@ -116,10 +115,27 @@ import { BarChart } from 'react-native-gifted-charts'
                         }}
                         noOfSections={6}
                         minHeight={5}
-                        formatYLabel={(val) => {
-                          const num = parseFloat(val);
-                          return isNaN(num) ? val : (num / 1_000_000).toFixed(1).replace(/\.0$/, '');
-                        }}
+                          formatYLabel={(val) => {
+                              const num = parseFloat(val);
+
+                              if (isNaN(num) || num === 0) {
+                                  return '0';
+                              }
+
+                              const valueInMillions = num / 1_000_000;
+
+                              if (num >= 1_000_000) {
+                              
+                                  const formatted = valueInMillions.toFixed(1);
+                                  const simplified = formatted.replace(/\.0$/, '');
+
+                                  return `${simplified}jt`;
+                              } else {
+                                  const valueInTenThousands = num / 10000;
+                                  
+                                  return valueInTenThousands.toString(); 
+                              }
+                          }}
                         isAnimated={true}
                         animationDuration={1000}
                       />
@@ -149,9 +165,6 @@ import { BarChart } from 'react-native-gifted-charts'
           </View>
         </View>
       </ScreenWrapper>
-      // <View>
-      //   <Header title='statistic' />
-      // </View>
     )
   }
 

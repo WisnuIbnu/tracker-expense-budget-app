@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "money-tracker-app",
+    "name": "FinFlow",
     "slug": "money-tracker-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -13,10 +13,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
+        "backgroundColor": "#404040",
+        "foregroundImage": "./assets/images/icon.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "monochromeImage": "./assets/images/icon.png"
       },
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
@@ -33,9 +33,9 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
+          "backgroundColor": "#404040",
           "dark": {
-            "backgroundColor": "#000000"
+            "backgroundColor": "#404040"
           }
         }
       ],
